@@ -4,6 +4,7 @@ services:
     image: maldo-front
     build: front/
     container_name: front
+    ports:
       - 3000:3000
   back:
     image: maldo-back
