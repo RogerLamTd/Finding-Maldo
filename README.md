@@ -15,4 +15,4 @@ to build docker image
 docker build -t maldo .
 
 to run in docker:
-docker -d -p 80 --rm maldo
+docker run -d -p 80 --rm maldo
