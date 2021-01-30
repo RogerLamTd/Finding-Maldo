@@ -3,3 +3,5 @@ back/src/__pycache__/
 
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
+key.json
+mask_test.png
