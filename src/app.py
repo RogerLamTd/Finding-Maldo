@@ -1,16 +1,15 @@
 from flask import Flask
-from flask_cors import CORS
+from flask import render_template
 import requests
 from PIL import Image
 from io import BytesIO
 import crop
 
-app = Flask(__name__)
-CORS(app)
+app = Flask(__name__, static_url_path="")
 
-@app.route('/', )
+@app.route('/')
 def hello_world():
-    return 'Hello, World!'
+    return render_template('index.html')
 
 @app.before_request
 def before_request():
@@ -26,3 +25,5 @@ def before_request():
 
 if __name__ == '__main__':
    app.run(host='0.0.0.0', port=80)
+
+   
