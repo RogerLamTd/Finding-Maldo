@@ -1,14 +1,8 @@
 version: '3.5'
 services:
-  front:
-    image: maldo-front
-    build: front/
-    container_name: front
-    ports:
-      - 3000:3000
-  back:
-    image: maldo-back
-    build: back/
-    container_name: back
+  app:
+    image: maldo
+    build: .
+    container_name: app
     ports:
       - 80:80
