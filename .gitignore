@@ -1,5 +1,5 @@
-back/venv/
-back/src/__pycache__/
+venv/
+src/__pycache__/
 
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
