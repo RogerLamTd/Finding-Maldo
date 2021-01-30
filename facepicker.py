@@ -1,17 +1,30 @@
-from PIL import Image
-import random
+import io
+import os
 from google.cloud import vision
 from matplotlib import pyplot as plt 
 from matplotlib import patches as pch 
 
-def crop_image(img):
-    im_w, im_h = img.size
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="/Users/roger/Documents/GitHub/Finding-Maldo/key.json"
+#insert path variable to API key here.
+
+client = vision.ImageAnnotatorClient()
+
+from PIL import Image
+import random
+
+# path variable to full image
+
+crowd_image = Image.open('/Users/roger/Documents/GitHub/Finding-Maldo/mask_test.png')
+im_w, im_h = crowd_image.width, crowd_image.height
+print("src crowd photo w: {}, h: {}".format(im_w, im_h))
+
+def crop_image(src_height, src_width):
 
     # max y-axis variation
-    max_hfactor_val = im_h - 500
+    max_hfactor_val = im_h - src_height
 
     # max x-axis variation
-    max_wfactor_val = im_w - 500
+    max_wfactor_val = im_w - src_width
 
     # get random shift in y-axis, x-axis rounded to nearest integer
     randh = int(max_hfactor_val*random.random())
@@ -22,14 +35,22 @@ def crop_image(img):
     # box = (x0, y0, x1, y1) -> x0 = left boundary y0 = up boundary ...
     x0 = randw
     y0 = randh
-    x1 = randw + 500
-    y1 = randh + 500
-    ret_img = img.crop((x0, y0, x1, y1))
-    return [ret_img, x0, y0]
+    x1 = randw + src_width
+    y1 = randh + src_height
+    print("cropping dimensions left: {}, right: {}, up: {}, down: {}".format(x0, x1, y0, y1))
+    ret_img = crowd_image.crop((x0, y0, x1, y1))
+    print("cropped photo w: {}, h: {}".format(ret_img.width, ret_img.height))
+    ret_img.save("/Users/roger/Documents/GitHub/Finding-Maldo/test_{}_{}.png".format(src_width, src_height))
 
-def pick_face(content):
+
+
+
+def pick_face(path):
     
     face_coords = []
+    
+    with io.open(path, 'rb') as image_file:
+        content = image_file.read()
     
     image = vision.Image(content=content)
 
@@ -42,6 +63,8 @@ def pick_face(content):
     
 
     for face in faces:
+
+
         vertices = ([(vertex.x, vertex.y)
                     for vertex in face.bounding_poly.vertices])
         
@@ -62,7 +85,7 @@ def pick_face(content):
             'https://cloud.google.com/apis/design/errors'.format(
                 response.error.message))
     
-    randint = int((len(faces)*random.random())
+    randint = int(50*random.random())
     chosen_face = face_coords[randint]
     rect = pch.Rectangle(chosen_face[0], (vertices[1][0] -  vertices[0][0]), 
                         (vertices[2][1] - vertices[0][1]), linewidth = 1, edgecolor ='r', facecolor ='none')
@@ -72,11 +95,9 @@ def pick_face(content):
 # return type is a list of lists of tuples representing where each internal list represents a face, and each
 # tuple is a coordinate of the face; top left, top right, bottom right, bottom left respectively.
 
-def makeMask(face):
+
+crop_image(500,500)
 
 
-def get_Mask(base):
-    tagImage, cropX, cropY = crop_image(base)
-    faceBox = pick_face(tagImage)
-    maskImg = makeMask(face)
-    return (maskImg, cropX + faceBox[0][0], cropY + faceBox[0][1])
+pick_face('/Users/roger/Documents/GitHub/Finding-Maldo/test_500_500.png')
+
