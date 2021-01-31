@@ -1,18 +1,6 @@
-# Finding-Maldo
+# Where-is-Bernie
 McHacks 2021
 
+Where's Waldo meets cozy Bernie in an amalgamation you never knew you needed!
 
-Install necessary dependencies:
-python3 -m venv venv
-. /venv/bin/activate
-pip3 install -r requirements.txt
-
-Run it:
-export FLASK_APP=hello.py
-flask run
-
-to build docker image
-docker build -t maldo .
-
-to run in docker:
-docker run -d -p 80 --rm maldo
+https://where-is-bernie.herokuapp.com/
