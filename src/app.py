@@ -17,7 +17,8 @@ app = Flask(__name__, static_url_path="")
                                #'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 images = ["https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.goodnewsunlimited.com%2Fwp-content%2Fuploads%2FCrowd.jpg&f=1&nofb=1",
-        "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.gannett-cdn.com%2F-mm-%2F279e76e11f691d6589f96f1782362c72d2b182f4%2Fc%3D0-208-4096-2522%26r%3Dx1803%26c%3D3200x1800%2Flocal%2F-%2Fmedia%2F2015%2F01%2F11%2FUSATODAY%2FUSATODAY%2F635565865838731514-EPA-FRANCE-PARIS-SOLIDARITY-RALLY.jpg&f=1&nofb=1"]
+        "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.gannett-cdn.com%2F-mm-%2F279e76e11f691d6589f96f1782362c72d2b182f4%2Fc%3D0-208-4096-2522%26r%3Dx1803%26c%3D3200x1800%2Flocal%2F-%2Fmedia%2F2015%2F01%2F11%2FUSATODAY%2FUSATODAY%2F635565865838731514-EPA-FRANCE-PARIS-SOLIDARITY-RALLY.jpg&f=1&nofb=1",
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmediad.publicbroadcasting.net%2Fp%2Fshared%2Fnpr%2Fstyles%2Fx_large%2Fnprshared%2F201910%2F772051298.jpg&f=1&nofb=1"]
 
 @app.route('/')
 def login():
@@ -50,7 +51,7 @@ def bernie_time():
     return render_template('index.html', base=img64.decode('utf-8'), mask=mask64.decode('utf-8'), mask_x = "{}px".format(xOffset), mask_y = "{}px".format(yOffset),
         mask_w = "{}px".format(maskSize[0]), mask_h = "{}px".format(maskSize[1]))
 
-@app.route('/winnerwinnterchickendinner')
+@app.route('/winnerwinnerchickendinner')
 def winner():
     return render_template('winner.html')
 
