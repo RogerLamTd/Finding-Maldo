@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
         <style>
-            .under {
+            .lay1 {
                 position: static;
                 left: 0%;
                 top: 0%;
-                z-index: 1;
+                z-index: 15;
             }
-        
-            .over {
+            .lay2 {
                 position: absolute;
                 top: {{mask_y}};
                 left: {{mask_x}};
-                background-color: #555;
+                width: {{mask_w}};
+                height: {{mask_h}};
+                z-index: 5;
+            }
+            .lay3 {
+                position: absolute;
+                top: {{mask_y}};
+                left: {{mask_x}};
+                background-color: Transparent;                
                 color: white;
-                font-size: 16px;
-                padding: 12px 12px;
+                font-size: 1px;
+                width: {{mask_w}};
+                height: {{mask_h}};
                 cursor: pointer;
-                border-radius: 5px;
+                border-width: 5px;
+                border-color: red;
                 text-align: center;
-                z-index: 0;
+                z-index: 1;
             }
         </style>
         
@@ -29,10 +39,12 @@
         <title>Wheres maldohead</title>
     </head>
 <body>
-    <h1>Hello World</h1>
     <div class="find_mask_crowd_container">
-        <img src="crowd.jpg" alt="crowd picture" class = 'under'>
-        <button class="over">mask</button>
+        <img id = "crowd" src="data:image/jpeg;base64,{{ base }}" alt="crowd_picture" class = 'lay1'>
+        <div class = "mask_container">
+            <img id = "mask_img" src="data:image/jpeg;base64,{{ mask }}" alt="mask_picture" class = 'lay2'>
+            <button id = mask_button class="lay3">mask</button> 
+        <div>
     </div>
     
     
