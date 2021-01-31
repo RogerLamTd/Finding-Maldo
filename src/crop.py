@@ -1,13 +1,10 @@
 from PIL import Image
 import random
-import os
 from io import BytesIO
 from google.cloud import vision
 #from matplotlib import pyplot as plt 
 #from matplotlib import patches as pch 
 
-
-os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 
 def crop_image(img):
     im_w, im_h = img.size
