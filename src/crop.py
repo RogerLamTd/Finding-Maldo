@@ -3,8 +3,8 @@ import random
 import os
 from io import BytesIO
 from google.cloud import vision
-from matplotlib import pyplot as plt 
-from matplotlib import patches as pch 
+#from matplotlib import pyplot as plt 
+#from matplotlib import patches as pch 
 
 
 os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
@@ -45,24 +45,24 @@ def pick_face(crop):
     response = client.face_detection(image=image, max_results=50)
     faces = response.face_annotations
     
-    a = plt.imread(img_byte_arr, format = "JPEG")
-    fig, ax = plt.subplots(1)
-    ax.imshow(a)
+    #a = plt.imread(img_byte_arr, format = "JPEG")
+    #fig, ax = plt.subplots(1)
+    #ax.imshow(a)
     
     for face in faces:
         vertices = ([(vertex.x, vertex.y)
                     for vertex in face.bounding_poly.vertices])
         
-        face_coords.append(vertices)
+        face_coords.append((vertices,face.detection_confidence))
         
         print('face bounds: ', vertices)
         #vertices are as follows: top left, top right, bottom right, bottom left.
     
-        rect = pch.Rectangle(vertices[0], (vertices[1][0] -  vertices[0][0]), 
-                        (vertices[2][1] - vertices[0][1]), linewidth = 1, edgecolor ='r', facecolor ='none') 
-        pch.Rectangle( (26, 453), 20, 23)
+        #rect = pch.Rectangle(vertices[0], (vertices[1][0] -  vertices[0][0]), 
+                        #(vertices[2][1] - vertices[0][1]), linewidth = 1, edgecolor ='r', facecolor ='none') 
+        #pch.Rectangle( (26, 453), 20, 23)
         
-        ax.add_patch(rect)
+        #ax.add_patch(rect)
 
     if response.error.message:
         raise Exception(
@@ -70,28 +70,45 @@ def pick_face(crop):
             'https://cloud.google.com/apis/design/errors'.format(
                 response.error.message))
     
-    randint = int((len(faces)*random.random()))
-    chosen_face = face_coords[randint]
-    rect = pch.Rectangle(chosen_face[0], (vertices[1][0] -  vertices[0][0]), 
-                        (vertices[2][1] - vertices[0][1]), linewidth = 1, edgecolor ='r', facecolor ='none')
-    ax.add_patch(rect)
-    fig.savefig("plot.png")
+    filtered_faces = []
+
+    for f in face_coords:
+        if f[1] >= 0.65:
+            filtered_faces.append(f[0])
+            
+            
+           #rect = pch.Rectangle(f[0][0], (f[0][1][0] - f[0][0][0]), (f[0][2][1] - f[0][0][1])
+            #                        , linewidth = 1, edgecolor ='r', facecolor ='none')
+            #ax.add_patch(rect)
+
+    randint = random.randint(0, len(filtered_faces) -1)
+    
+    chosen_face = filtered_faces[randint]
+    #rect = pch.Rectangle(chosen_face[0], (chosen_face[1][0] - chosen_face[0][0]), (chosen_face[2][1] - chosen_face[0][1])
+                                    #, linewidth = 1, edgecolor ='r', facecolor ='none')
+    #ax.add_patch(rect)
+    
+    #rect = pch.Rectangle(chosen_face[0], (vertices[1][0] -  vertices[0][0]), 
+    #                    (vertices[2][1] - vertices[0][1]), linewidth = 1, edgecolor ='r', facecolor ='none')
+    #ax.add_patch(rect)
+    #fig.savefig("plot.png")
         
     return chosen_face
 # return type is a list of lists of tuples representing where each internal list represents a face, and each
 # tuple is a coordinate of the face; top left, top right, bottom right, bottom left respectively.
 
 def make_Mask(face):
-    mask = Image.open("static/mask.png")
+    mask = Image.open("static/bernie_head.png")
     print(face[1][0] - face[0][0], face[3][1] - face[0][1])
-    mask = mask.resize((face[1][0] - face[0][0], (face[3][1] - face[0][1])// 2))
+    mask = mask.resize((int((face[1][0] - face[0][0]) * 1.2),
+                        int((face[3][1] - face[0][1]) * 1.2)))
     return (mask, (mask.width, mask.height))
 
 def get_Mask(base):
     tagImage, cropX, cropY = crop_image(base)
     faceBox = pick_face(tagImage)
     maskImg, maskSize = make_Mask(faceBox)
-    return (maskImg, cropX + faceBox[0][0] + maskSize[0]//2, cropY + faceBox[0][1], maskSize)
+    return (maskImg, cropX + faceBox[0][0], cropY + faceBox[0][1], maskSize)
 
 
 #def get_Bernie(base):

@@ -7,7 +7,6 @@
                 position: static;
                 left: 0%;
                 top: 0%;
-                z-index: 15;
             }
             .lay2 {
                 position: absolute;
@@ -15,7 +14,6 @@
                 left: {{mask_x}};
                 width: {{mask_w}};
                 height: {{mask_h}};
-                z-index: 5;
             }
             .lay3 {
                 position: absolute;
@@ -27,8 +25,8 @@
                 width: {{mask_w}};
                 height: {{mask_h}};
                 cursor: pointer;
-                border-width: 5px;
-                border-color: red;
+                border: None;
+                outline: None;
                 text-align: center;
                 z-index: 1;
             }
@@ -36,18 +34,17 @@
         
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
-        <title>Wheres maldohead</title>
+        <title>Where's Bernie</title>
     </head>
 <body>
     <div class="find_mask_crowd_container">
         <img id = "crowd" src="data:image/jpeg;base64,{{ base }}" alt="crowd_picture" class = 'lay1'>
         <div class = "mask_container">
             <img id = "mask_img" src="data:image/jpeg;base64,{{ mask }}" alt="mask_picture" class = 'lay2'>
-            <button id = mask_button class="lay3">mask</button> 
+            <a id = mask_button href="/winnerwinnterchickendinner" class="lay3"></a>
         <div>
     </div>
-    
-    
+   
 </body>
 
 
