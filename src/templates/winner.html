@@ -13,12 +13,16 @@
                 position: relative 
             }
 
-            
+            #chunk{
+                margin: 20%;
+            }
 
             #winner_title {
-                text-shadow: 2px 2px 5px red;
-                font-size: 40px;
+                color: white;
+                font-size: 55px;
                 text-align: center;
+                font-family: Arial;
+
                 
             }
 
@@ -30,10 +34,14 @@
                 display: inline-block;
                 border-color: #f44336;
                 border-width: 2px;
-                text-shadow: 2px 2px 5px red;
                 font-size: 55px;
                 display:block;
+                font-family: Arial;
 
+            }
+
+            #winner_but:hover {
+                color: hotpink;
             }
 
             #background {
@@ -47,7 +55,6 @@
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: cover;
-                opacity: 0.2;
                 z-index: -1;
             }
 
@@ -57,13 +64,14 @@
 
     </head>
 <body>
+    <div id = "chunk"></div>
     <div class = "winner_card">
-        <img id = "background" src="https://media0.giphy.com/media/VofiGkwOdH2fu/giphy.gif" alt = "no gif :(" class = "background">
+        <img id = "background" src="https://media2.giphy.com/media/ZSSoLmkYURcWqKFdVA/giphy.gif?cid=ecf05e47zi2cz6xe4j8e617lbz6squ2r4wwlhrolngmxhhyo&rid=giphy.gif" alt = "no gif :(" class = "background">
         <h1 id = "winner_title">
-            WINNER WINNER CHICKEN DINNER
+            YOU FOUND BERNIE!!
         </h1>
 
-        <a id = "winner_but" href="/bernie-time" >GO AGANEEE</a>
+        <a id = "winner_but" href="/bernie-time" >FIND HIM AGAIN</a>
     </div>
 
    
