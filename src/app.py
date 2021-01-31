@@ -7,6 +7,7 @@ from io import BytesIO
 import crop
 import base64
 import random
+import os
 
 app = Flask(__name__, static_url_path="")
 
@@ -54,4 +55,5 @@ def winner():
     return render_template('winner.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    targetPort = int(os.getenv('PORT', 80))
+    app.run(host='0.0.0.0', port = targetPort)

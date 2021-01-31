@@ -7,6 +7,7 @@ RUN pip3 install -r requirements.txt && \
 COPY src/ .
 COPY key.json /credentials/
 USER app
+EXPOSE 80
 ENV GOOGLE_APPLICATION_CREDENTIALS=/credentials/key.json
 
-ENTRYPOINT ["gunicorn", "--config", "gunicorn_config.py", "app:app"]
+ENTRYPOINT ["python", "app.py"]
