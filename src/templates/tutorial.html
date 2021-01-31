@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+
+        <style>
+
+            #start_but{
+                color: white;
+                padding: 14px 25px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                border-color: #f44336;
+                border-width: 2px;
+                text-shadow: 2px 2px 5px red;
+                font-size: 55px;
+                display:block;
+                background-color: #99716e;
+
+            }
+
+        </style>
+
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+        <title>Where's Bernie</title>
+
+    </head>
+    <body>
+        <div id = "tutorial">
+            <img id = "bernie" src="/bernie_head.png" alt="bernie_head">
+            
+            <a id = "start_but" href="/bernie-time">GO FIND BERNIE</a>
+        </div>
+    </body>
+    
+    
+    </html>
